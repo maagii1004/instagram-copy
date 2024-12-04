@@ -49,7 +49,7 @@ export default function SignupPage() {
         <button className="text-black bg-white">Signup</button>
       </form>
       <div className="my-4">
-        Already have an account? <Link href={"/signin"}>Sign in</Link>
+        Already have an account? <Link href={"/login"}>Sign in</Link>
       </div>
     </div>
   );
