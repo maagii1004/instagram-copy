@@ -1,12 +1,19 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { useContext } from "react";
+import { UserContext } from "../contexts/user-context";
 
 export default function SignupPage() {
-  const router = useRouter();
+    const { isSignedIn } = useContext(UserContext);
+    const router = useRouter();
+
+    if (isSignedIn) {
+      return redirect("/");3
+    }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -40,7 +47,6 @@ export default function SignupPage() {
                 router.push("/login");
               })
               .catch((err) => {
-                // console.error(err);
                 toast.error(err.response.data.message);
               });
           }}

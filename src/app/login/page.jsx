@@ -2,10 +2,19 @@
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation"              
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { UserContext } from "../contexts/user-context";
+import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function SigninPage() {
-const router = useRouter();
+  const { isSignedIn, setIsSignedIn } = useContext(UserContext);
+
+    if (isSignedIn) {
+      return redirect("/");
+    }
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black">
@@ -33,11 +42,11 @@ const router = useRouter();
               })
               .then((res) => {
                 toast.success("Ta amjilttai nevterlee!!");
-                router.push("http://localhost:3000");
-                
+                setIsSignedIn(true);
+                localStorage.setItem("isSignedIn", true);
               })
               .catch((err) => {
-                toast.error(err.response.data.message)
+                toast.error(err.response.data.message);
               });
           }}
           className="flex flex-col gap-4"
