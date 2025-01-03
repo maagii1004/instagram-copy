@@ -1,7 +1,6 @@
 import { CiImageOn } from "react-icons/ci";
 import { CgSpinner } from "react-icons/cg";
 import { useState } from "react";
-import { RiImageAddFill } from "react-icons/ri";
 import axios from "axios";
 
 export const ImageUploader = ({ setMediaUrl }) => {
@@ -9,8 +8,8 @@ export const ImageUploader = ({ setMediaUrl }) => {
   const [response, setResponse] = useState();
 
   return (
-    <div className="relative flex items-center justify-center max-w-[1000px] min-h-80 my-4 rounded border-2 border-gray-500">
-      <RiImageAddFill size={100} />
+    <div className="relative flex items-center justify-center w-[40%] my-4 rounded aspect-square bg-transparent border-[1px] hover:cursor-pointer">
+      {!response && <CiImageOn size={40} />}
       <input
         onChange={(e) => {
           setLoading(true);
@@ -25,7 +24,7 @@ export const ImageUploader = ({ setMediaUrl }) => {
             });
         }}
         type="file"
-        className="absolute top-0 left-0 w-full h-full opacity-0 hover:cursor-pointer"
+        className="absolute top-0 left-0 w-full h-full opacity-0"
         accept="image/*"
       />
       {loading && (
@@ -37,7 +36,7 @@ export const ImageUploader = ({ setMediaUrl }) => {
         <img
           src={response.fileUrl}
           alt=""
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-full hover:cursor-pointer"
         />
       )}
     </div>

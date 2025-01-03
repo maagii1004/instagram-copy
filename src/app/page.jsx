@@ -10,7 +10,7 @@ import { GoHomeFill } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
 
 export default function Home() {
-  const { isSignedIn } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [posts, setPosts] = useState([]);
 
@@ -20,7 +20,7 @@ export default function Home() {
     });
   }, []);
 
-  if (!isSignedIn) {
+  if (!user) {
     return redirect("/login");
   }
 
@@ -37,20 +37,21 @@ export default function Home() {
             className="mb-10"
           />
         </Link>
-        <ul className="flex flex-col gap-6 text-lg">
+        <ul className="flex flex-col gap-3 text-lg">
           <li className="flex items-center gap-4 cursor-pointer hover:bg-[#2A2A2A] p-2 rounded-lg sidebar-item">
-            <GoHomeFill className="w-7 h-7 text-gray-400" />
+            <GoHomeFill className="w-7 h-7 text-white" />
             <span className="sidebar-text">Home</span>
           </li>
           <li className="flex items-center gap-4 cursor-pointer hover:bg-[#2A2A2A] p-2 rounded-lg sidebar-item">
-            <IoIosSearch className="w-7 h-7 text-gray-400" />
+            <IoIosSearch className="w-7 h-7 text-white" />
             <span className="sidebar-text">Search</span>
           </li>
           <Link href="/create">
             <li className="flex items-center gap-4 cursor-pointer hover:bg-[#2A2A2A] p-2 rounded-lg sidebar-item">
-              <FaRegSquarePlus className="w-7 h-7 text-gray-400" />
+              <FaRegSquarePlus className="w-7 h-7 text-white" />
               <span className="sidebar-text">Create</span>
             </li>
+          
           </Link>
         </ul>
       </nav>
@@ -66,7 +67,12 @@ export default function Home() {
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-gray-900 rounded-full"></div>
                 <span className="font-semibold text-gray-200">
-                  Username Placeholder
+                  <Link
+                    className="text-blue-500"
+                    href={`/${post.user.username}`}
+                  >
+                    @{post.user.username}
+                  </Link>
                 </span>
               </div>
               {/* Media */}
@@ -78,7 +84,7 @@ export default function Home() {
                     className="w-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-[300px] bg-gray-900"></div>
+                  <div className=""></div>
                 )}
               </div>
               {/* Post Description */}

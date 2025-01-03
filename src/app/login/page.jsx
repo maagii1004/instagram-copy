@@ -2,19 +2,17 @@
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { UserContext } from "../contexts/user-context";
 import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
 
 export default function SigninPage() {
-  const { isSignedIn, setIsSignedIn } = useContext(UserContext);
+  const { user, setAccessToken } = useContext(UserContext);
 
-    if (isSignedIn) {
-      return redirect("/");
-    }
-
+  if (user) {
+    return redirect("/");
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black">
@@ -36,17 +34,17 @@ export default function SigninPage() {
             const password = e.target.password.value;
 
             axios
-              .post(`${process.env.NEXT_PUBLIC_API}/signin`, {
+              .post(`${process.env.NEXT_PUBLIC_API}/login`, {
                 credential,
                 password,
               })
               .then((res) => {
                 toast.success("Ta amjilttai nevterlee!!");
-                setIsSignedIn(true);
-                localStorage.setItem("isSignedIn", true);
+                setAccessToken(res.data.accessToken);
               })
               .catch((err) => {
-                toast.error(err.response.data.message);
+                console.error(err);
+                toast.error();
               });
           }}
           className="flex flex-col gap-4"

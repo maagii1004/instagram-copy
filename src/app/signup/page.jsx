@@ -7,13 +7,14 @@ import Image from "next/image";
 import { useContext } from "react";
 import { UserContext } from "../contexts/user-context";
 
-export default function SignupPage() {
-    const { isSignedIn } = useContext(UserContext);
-    const router = useRouter();
 
-    if (isSignedIn) {
-      return redirect("/");3
-    }
+export default function SignupPage() {
+     const { user } = useContext(UserContext);
+     const router = useRouter();
+
+     if (user) {
+       return redirect("/");
+     }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -47,6 +48,7 @@ export default function SignupPage() {
                 router.push("/login");
               })
               .catch((err) => {
+                console.error(err);
                 toast.error(err.response.data.message);
               });
           }}
