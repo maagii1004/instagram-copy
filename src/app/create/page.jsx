@@ -35,24 +35,37 @@ const CreatePage = () => {
   return (
     <>
       <header className="flex justify-between p-4">
-        <button onClick={() => router.back()}> &lt; </button>
+        <button
+          className="hover:cursor-pointer hover:underline hover:font-semibold"
+          onClick={() => router.back()}
+        >
+          {" "}
+          Cancel{" "}
+        </button>
         <p>New post</p>
-        <button onClick={handleSubmit}>Share</button>
+        <button
+          className="hover:cursor-pointer hover:underline hover:font-semibold"
+          onClick={handleSubmit}
+        >
+          Share
+        </button>
       </header>
-      <main className="p-4">
+      <main className="p-4 ml-[770px]">
         <label htmlFor="">Image</label>
-        <ImageUploader setMediaUrl={setMediaUrl} className="hover:cursor-pointer"/>
+        <ImageUploader
+          setMediaUrl={setMediaUrl}
+          className="hover:cursor-pointer"
+        />
         <div className="flex flex-col">
           <p className="pb-3">Description</p>
-        <textarea
-          value={description}
-          onChange={(e) => {
-            setDescription(e.target.value);
-          }}
-          className="max-w-[40%] border rounded resize-none bg-background text-foreground"
-        />
+          <textarea
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            className="max-w-[50%] border rounded resize-none bg-background text-foreground"
+          />
         </div>
-        
       </main>
     </>
   );

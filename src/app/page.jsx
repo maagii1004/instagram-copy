@@ -8,9 +8,10 @@ import Image from "next/image";
 import { FaRegSquarePlus } from "react-icons/fa6";
 import { GoHomeFill } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
+import { CgLogOut } from "react-icons/cg";
 
 export default function Home() {
-  const { user } = useContext(UserContext);
+  const { user, setAccessToken} = useContext(UserContext);
 
   const [posts, setPosts] = useState([]);
 
@@ -23,11 +24,16 @@ export default function Home() {
   if (!user) {
     return redirect("/login");
   }
+  const handleLogOut = () => {
+    if (confirm("Are you sure you want to log out?")) {
+      setAccessToken("");
+    }
+  }
 
   return (
-    <div className="min-h-screen flex bg-[#12121208] text-gray-200">
+    <div className="min-h-screen flex bg-[#000000] text-gray-200">
       {/* Sidebar Navigation */}
-      <nav className="w-[20%] h-full fixed bg-[#1e1e1e75] border-r border-gray-900 shadow-sm flex flex-col items-start pt-5 px-6">
+      <nav className="w-[15%] h-full fixed bg-[#000000] border-r border-gray-900 shadow-sm flex flex-col items-start pt-5 px-6">
         <Link href="/">
           <Image
             src="/Instagram.png"
@@ -51,24 +57,27 @@ export default function Home() {
               <FaRegSquarePlus className="w-7 h-7 text-white" />
               <span className="sidebar-text">Create</span>
             </li>
-          
           </Link>
+          <li className="flex items-center gap-4 cursor-pointer hover:bg-[#2A2A2A] p-2 rounded-lg sidebar-item">
+            <CgLogOut className="w-7 h-7 text-white" />
+            <button onClick={handleLogOut} className="sidebar-text">Log Out</button>
+          </li>
         </ul>
       </nav>
 
-      <main className="ml-[20%] w-[80%] flex flex-col items-center pt-10">
+      <main className="ml-[10%] w-[80%] flex flex-col items-center pt-10">
         <div className="w-full max-w-[600px]">
           {posts.map((post) => (
             <div
               key={post.id}
-              className="mb-10 border border-gray-700 bg-[#1E1E1E] rounded-lg shadow-sm p-4"
+              className="mb-10 border-[0.3px] border-[#3c3c3c87] bg-[#000000] rounded-lg shadow-sm p-4"
             >
               {/* User Info */}
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gray-900 rounded-full"></div>
+                <div className="w-10 h-10 bg-gray-100 rounded-full"><img src="../pfp.jpg" alt="" className="rounded-full"/></div>
                 <span className="font-semibold text-gray-200">
                   <Link
-                    className="text-blue-500"
+                    className="text-white"
                     href={`/${post.user.username}`}
                   >
                     @{post.user.username}
@@ -76,7 +85,7 @@ export default function Home() {
                 </span>
               </div>
               {/* Media */}
-              <div className="w-full bg-gray-700 rounded-lg overflow-hidden">
+              <div className="w-full bg-[#000000] rounded-lg overflow-hidden">
                 {post.mediaUrl ? (
                   <img
                     src={post.mediaUrl}

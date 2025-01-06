@@ -30,6 +30,8 @@ export const UserContextProvider = ({ children }) => {
           setAccessToken("");
           setUser(null);
         });
+    } else {
+      setUser(null);
     }
   }, [accessToken]);
 
