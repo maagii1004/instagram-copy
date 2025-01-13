@@ -9,9 +9,10 @@ import { FaRegSquarePlus } from "react-icons/fa6";
 import { GoHomeFill } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
 import { CgLogOut } from "react-icons/cg";
+import { PostCard } from "./components/PostCard";
 
 export default function Home() {
-  const { user, setAccessToken} = useContext(UserContext);
+  const { user, setAccessToken } = useContext(UserContext);
 
   const [posts, setPosts] = useState([]);
 
@@ -24,11 +25,12 @@ export default function Home() {
   if (!user) {
     return redirect("/login");
   }
+
   const handleLogOut = () => {
     if (confirm("Are you sure you want to log out?")) {
       setAccessToken("");
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex bg-[#000000] text-gray-200">
@@ -60,47 +62,19 @@ export default function Home() {
           </Link>
           <li className="flex items-center gap-4 cursor-pointer hover:bg-[#2A2A2A] p-2 rounded-lg sidebar-item">
             <CgLogOut className="w-7 h-7 text-white" />
-            <button onClick={handleLogOut} className="sidebar-text">Log Out</button>
+            <button onClick={handleLogOut} className="sidebar-text">
+              Log Out
+            </button>
           </li>
         </ul>
       </nav>
 
-      <main className="ml-[10%] w-[80%] flex flex-col items-center pt-10">
-        <div className="w-full max-w-[600px]">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className="mb-10 border-[0.3px] border-[#3c3c3c87] bg-[#000000] rounded-lg shadow-sm p-4"
-            >
-              {/* User Info */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gray-100 rounded-full"><img src="../pfp.jpg" alt="" className="rounded-full"/></div>
-                <span className="font-semibold text-gray-200">
-                  <Link
-                    className="text-white"
-                    href={`/${post.user.username}`}
-                  >
-                    @{post.user.username}
-                  </Link>
-                </span>
-              </div>
-              {/* Media */}
-              <div className="w-full bg-[#000000] rounded-lg overflow-hidden">
-                {post.mediaUrl ? (
-                  <img
-                    src={post.mediaUrl}
-                    alt="Post"
-                    className="w-full object-cover"
-                  />
-                ) : (
-                  <div className=""></div>
-                )}
-              </div>
-              {/* Post Description */}
-              <p className="mt-4 text-gray-300">{post.description}</p>
-            </div>
+      <main className="ml-[15%] w-[85%] flex flex-col items-center pt-5 overflow-y-auto">
+        {posts
+          .filter((post) => Boolean(post.mediaUrl))
+          .map((post) => (
+            <PostCard key={post._id} post={post} />
           ))}
-        </div>
       </main>
     </div>
   );

@@ -50,7 +50,7 @@ const CreatePage = () => {
           Share
         </button>
       </header>
-      <main className="p-4 ml-[770px]">
+      <main className="p-4">
         <label htmlFor="">Image</label>
         <ImageUploader
           setMediaUrl={setMediaUrl}
