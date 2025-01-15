@@ -5,6 +5,10 @@ import { UserContext } from "../contexts/user-context";
 import axios from "axios";
 import { LikedIcon } from "../icons/LikedIcon";
 import { LikeIcon } from "../icons/LikeIcon";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 export const PostCard = ({ post }) => {
   const { user, accessToken } = useContext(UserContext);
@@ -84,12 +88,13 @@ export const PostCard = ({ post }) => {
   };
 
   return (
-    <div className="bg-[#1a1a1a6f] text-white border border-gray-800 rounded-lg shadow-lg mb-6 max-w-[500px] mx-auto">
+    <div className="bg-[#1a1a1a6f] text-white border border-gray-800 rounded-lg shadow-lg mb-6 w-[500px] mx-auto">
       <div className="flex items-center gap-3 p-4 border-b border-gray-700">
-        <img src="../pfp.jpg" alt="" className="w-8 h-8 rounded-full" />
+        <img src={"../pfp.jpg"} alt="" className="w-8 h-8 rounded-full" />
         <Link href={`/${post.user.username}`} className="text-sm font-semibold">
           @{post.user.username}
         </Link>
+        <p className="text-gray-500 text-sm">{dayjs(post.createdAt).fromNow()}</p>
       </div>
 
       {/* Image */}

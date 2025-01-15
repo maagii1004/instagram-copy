@@ -7,9 +7,9 @@ import axios from "axios";
 import Image from "next/image";
 import { FaRegSquarePlus } from "react-icons/fa6";
 import { GoHomeFill } from "react-icons/go";
-import { IoIosSearch } from "react-icons/io";
 import { CgLogOut } from "react-icons/cg";
 import { PostCard } from "./components/PostCard";
+import { CgProfile } from "react-icons/cg";
 
 export default function Home() {
   const { user, setAccessToken } = useContext(UserContext);
@@ -46,14 +46,22 @@ export default function Home() {
           />
         </Link>
         <ul className="flex flex-col gap-3 text-lg">
-          <li className="flex items-center gap-4 cursor-pointer hover:bg-[#2A2A2A] p-2 rounded-lg sidebar-item">
-            <GoHomeFill className="w-7 h-7 text-white" />
-            <span className="sidebar-text">Home</span>
-          </li>
-          <li className="flex items-center gap-4 cursor-pointer hover:bg-[#2A2A2A] p-2 rounded-lg sidebar-item">
-            <IoIosSearch className="w-7 h-7 text-white" />
-            <span className="sidebar-text">Search</span>
-          </li>
+          <Link href={"/"}>
+            <li className="flex items-center gap-4 cursor-pointer hover:bg-[#2A2A2A] p-2 rounded-lg sidebar-item">
+              <GoHomeFill className="w-7 h-7 text-white" />
+              <span className="sidebar-text">Home</span>
+            </li>
+          </Link>
+
+          {user && (
+            <Link href={`/${user.username}`}>
+              <li className="flex items-center gap-4 cursor-pointer hover:bg-[#2A2A2A] p-2 rounded-lg sidebar-item">
+                <CgProfile className="w-7 h-7 text-white" />
+                <span className="sidebar-text">Profile</span>
+              </li>
+            </Link>
+          )}
+
           <Link href="/create">
             <li className="flex items-center gap-4 cursor-pointer hover:bg-[#2A2A2A] p-2 rounded-lg sidebar-item">
               <FaRegSquarePlus className="w-7 h-7 text-white" />

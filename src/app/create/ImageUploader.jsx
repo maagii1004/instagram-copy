@@ -8,11 +8,16 @@ export const ImageUploader = ({ setMediaUrl }) => {
   const [response, setResponse] = useState();
 
   return (
-    <div className="relative flex items-center justify-center max-w-[50%] my-4 rounded aspect-square bg-transparent border-[1px] hover:cursor-pointer">
-      <div className="flex-col justify-center">
-        {!response && <CiImageOn size={100} className="hover:cursor-pointer text-gray-400"/>}
+    <div className="relative flex items-center justify-center max-w-lg my-4 rounded aspect-square border-[1px] hover:cursor-pointer bg-[#00000070]">
+      <div className="flex-col justify-center ">
+        {!response && (
+          <CiImageOn
+            size={100}
+            className="hover:cursor-pointer text-gray-400"
+          />
+        )}
       </div>
-      
+
       <input
         onChange={(e) => {
           setLoading(true);
