@@ -90,7 +90,7 @@ export const PostCard = ({ post }) => {
   return (
     <div className="bg-[#1a1a1a6f] text-white border border-gray-800 rounded-lg shadow-lg mb-6 w-[500px] mx-auto">
       <div className="flex items-center gap-3 p-4 border-b border-gray-700">
-        <img src={"../pfp.jpg"} alt="" className="w-8 h-8 rounded-full" />
+        <img src={`${post.user.profileUrl}`} alt="" className="w-8 h-8 rounded-full" />
         <Link href={`/${post.user.username}`} className="text-sm font-semibold">
           @{post.user.username}
         </Link>
